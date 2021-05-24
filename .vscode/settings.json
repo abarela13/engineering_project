@@ -1,3 +1,15 @@
 {
-    "python.pythonPath": "/home/aaron/anaconda3/envs/metis/bin/python"
+    "python.pythonPath": "/home/aaron/anaconda3/envs/metis/bin/python",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "192.168.0.242",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "server-postgres",
+            "database": "tracker-network",
+            "password": "932068",
+            "username": "postgres"
+        }
+    ]
 }
