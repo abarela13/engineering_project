@@ -5,7 +5,11 @@ The goal of this project is to provide subscribers with the means to identify wh
 ## Database schema
 ![](schema.png)
 
-To achieve this I am current scraping the following sites every 10 minutes for availability.
+To achieve this I am currently scraping the following sites every 10 minutes for availability:
+ - Best Buy
+ - Amazon
+ - Micro Center
+ - Newegg
 
 If a product is available, it will then send a notifications to discord for subscribers of a channel to be alerted.
 
