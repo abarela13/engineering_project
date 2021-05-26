@@ -21,7 +21,7 @@ def chrome_driver():
 
 def get_soup(url):
     driver.get(url)
-    time.sleep(2)
+    time.sleep(1)
     return BeautifulSoup(driver.page_source, 'html.parser')
 
 def check_products(soup, category, subcategory, drops=[]):
@@ -50,7 +50,7 @@ def check_products(soup, category, subcategory, drops=[]):
 
     if soup.find('div', {'class', 'footer-category'}).find_next_sibling('div') and not soup.find('a', {'class', 'sku-list-page-next disabled'}):
         driver.get(soup.find('a', {'class', 'sku-list-page-next'})['href'])
-        time.sleep(2)
+        time.sleep(1)
         return check_products(BeautifulSoup(driver.page_source, 'html.parser'), category, subcategory, drops)
     else:
         return drops
