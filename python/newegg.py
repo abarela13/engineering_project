@@ -55,7 +55,7 @@ def check_products(discord_channel, category, subcategory, newegg_category, seri
             price = (item.find('li', {'class':'price-current'}).find('strong').text.replace(',','') + item.find('li', {'class':'price-current'}).find('sup').text)
             image = item.find('img')['src']
             
-            # dp.discord_webhook_post(discord_channel, subcategory, f'https://secure.newegg.com/Shopping/AddtoCart.aspx?Submit=ADD&ItemList={id}', 'Newegg', name, image)
+            dp.discord_webhook_post(discord_channel, subcategory, f'https://secure.newegg.com/Shopping/AddtoCart.aspx?Submit=ADD&ItemList={id}', f'Newegg - ${price}', name, image)
             pg.process_drops([[id, name, 3, category_dict[category], sub_dict[subcategory], price, link, dt.now().strftime('%Y/%m/%d %H:%M:%S'), '', True]])
         
     if soup.find('button', {'class':'btn', 'title':'Next'}):

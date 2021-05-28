@@ -1,7 +1,7 @@
 import psycopg2 as pg
 
 def product_exists(external_id, vendor_id):
-    query = f"SELECT id FROM products WHERE external_id = '{external_id} and vendor_id = '{vendor_id}'"
+    query = f"SELECT id FROM products WHERE external_id = '{external_id}' and vendor_id = {vendor_id}"
     cursor.execute(query)
     return cursor.fetchone() is not None
 
