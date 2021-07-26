@@ -1,7 +1,7 @@
 # Project 3: Engineering - Product Drops Tracker
 ## Get push notifictions for products you're interested in
 
-The goal of this project is to set up an push notification system for in demend products purchased online from vendors such as [Best Buy](https://bestbuy.com) and [Newegg](https://newegg.com/).
+The goal of this project is to set up an push notification system for in demand products purchased online from vendors such as [Best Buy](https://bestbuy.com) and [Newegg](https://newegg.com/).
 ### Data
  * **acquisition**: web scraping, executed every 1-2 minute
  * **storage**: PostgreSQL
