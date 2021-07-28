@@ -1,15 +1,9 @@
-# from selenium.webdriver.chrome.options import Options
-# from os import path, listdir, rename, getcwd
-from fake_useragent import UserAgent
-# from dateutil.parser import parse
-# from selenium import webdriver
 from datetime import datetime as dt
 from bs4 import BeautifulSoup
 import pg_functions as pg
 import discord_post as dp
 import requests
 import time
-# import re
 
 def get_soup(url):
     response = requests.get(url)
@@ -50,7 +44,7 @@ def check_products(discord_channel, category, subcategory, newegg_category, seri
                 continue
 
             id = item.find('a', {'class':'item-title'})['href'].split('?')[1][5:]
-            link = f'/p/{id}'
+            link = f'https://newegg.com/p/{id}'
             name = item.find('a', {'class':'item-title'}).text
             price = (item.find('li', {'class':'price-current'}).find('strong').text.replace(',','') + item.find('li', {'class':'price-current'}).find('sup').text)
             image = item.find('img')['src']
@@ -78,9 +72,9 @@ def check_xbox_consoles():
 def check_ryzen():
     amd_processors = '50001028'
     ryzen5000series = {
-        '5900x':'%20601362404',
+        '5600x':'%20601359147',
         '5800x':'%20601359143',
-        '5600x':'%20601359147'
+        '5900x':'%20601362404'
     }
     
     for cpu in ryzen5000series:
@@ -90,7 +84,7 @@ def check_ryzen():
 def check_radeon():
     video_cards = '100007709'
     gpus = {
-        '6700xt':'%20601362404',
+        # '6700xt':'%20601362404',
         '6800':'%20601359427',
         '6800xt':'%20601359422',
         '6900xt':'%20601359957'
@@ -114,8 +108,8 @@ def check_rtx():
         check_products('rtx', 'GPU', gpu, video_cards, gpus[gpu])
         time.sleep(1)
 
-check_xbox_consoles()
-check_ps5_consoles()
-check_ryzen()
+# check_xbox_consoles()
+# check_ps5_consoles()
+# check_ryzen()
 check_rtx()
 check_radeon()
