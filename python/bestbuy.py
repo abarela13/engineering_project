@@ -10,7 +10,7 @@ import re
 
 def chrome_driver():
     options = Options()
-    # options.add_argument('--headless')
+    options.add_argument('--headless')
     options.add_argument("window-size=1600,900")
     options.add_argument(f'user-agent={UserAgent().chrome}')
         
@@ -87,13 +87,15 @@ def check_products(soup, channel, category, subcategory, drops=[]):
     else:
         return drops
 
-def check_product_page(soup, id, category, subcategory, drops=[]):
+def check_product_page(channel, soup, id, category, subcategory, drops=[]):
     if soup.find('button', {'class', 'btn btn-primary btn-lg btn-block btn-leading-ficon add-to-cart-button'}):
         name = soup.find('div', {'class', 'sku-title'}).find('h1').text.strip()
         price = soup.find('div', {'class', 'priceView-customer-price'}).find('span').text[1:]
         link = f'https://api.bestbuy.com/click/-/{id}/pdp'
         atc = f'https://api.bestbuy.com/click/-/{id}/cart'
+        image = f'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/{id[:4]}/{id}_sa.jpg'
 
+        dp.discord_webhook_post(channel, subcategory, atc, f'Best Buy - ${price}', name, image)
         drops.append([id, name, 2, category, subcategory, price, link, dt.now().strftime('%Y/%m/%d %H:%M:%S'), atc, False])
     return drops
 
@@ -141,8 +143,8 @@ def check_radeon_rx_series(drops):
 
 def check_ryzen_series(drops=[]):
     ryzen_dict = {
-        '5600x': ['6438943', 13],
-        '5800x': ['6439000', 14],
+        # '5600x': ['6438943', 13],
+        # '5800x': ['6439000', 14],
         '5900x': ['6438942', 15],
         '5950x': ['6438941', 16]
     }
@@ -150,16 +152,16 @@ def check_ryzen_series(drops=[]):
     product_url = 'https://api.bestbuy.com/click/-/{product}/pdp'
 
     for gpu in ryzen_dict:
-        drops = check_product_page(get_soup(product_url.format(product=ryzen_dict[gpu][0])), ryzen_dict[gpu][0], 2, gpu, drops)
+        drops = check_product_page('ryzen', get_soup(product_url.format(product=ryzen_dict[gpu][0])), ryzen_dict[gpu][0], 2, gpu, drops)
         time.sleep(1)
     return drops
 
 def check_all_products(drops=[]):
-    drops = check_xbox_consoles(drops)
-    drops = check_ps5_consoles(drops)
+    # drops = check_xbox_consoles(drops)
+    # drops = check_ps5_consoles(drops)
     drops = check_rtx_3000_series(drops)
     drops = check_radeon_rx_series(drops)
-    drops = check_ryzen_series(drops)
+    # drops = check_ryzen_series(drops)
     # drops = check_nintendo_switches(drops)
     return drops
 
